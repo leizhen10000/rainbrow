@@ -27,7 +27,8 @@ from common.log_more import setup_logging
 
 
 setup_logging()
-logger = logging.getLogger("<module>")
-logger.info("aaaa")
-logger.error("aabasd")
-logger.info('darea')
+logger = logging.getLogger("qop")
+logger.info("bbbb")
+logger.error('there is an error .')
+# logger.error("aabasd")
+# logger.info('darea')

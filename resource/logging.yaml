@@ -4,21 +4,31 @@ disable_existing_loggers: true
 
 formatters:
   standard:
-    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    format: "%(asctime)s %(name)s - %(filename)s:%(lineno)d - %(levelname)-s - %(message)s"
+    datefmt: '%y-%m-%d %H:%M:%S'
   error:
-    format: "%(levelname)s <PID %(process)d:%(processName)s> %(name)s.%(funcName)s(): %(message)s"
+    format: "%(levelname)s <PID %(process)d:%(processName)s> %(name)s.%(filename)s:%(funcName)s():%(lineno)d: %(message)s"
   brief:
     format: "%(asctime)s - %(message)s"
   simple:
-    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    format: "%(asctime)s %(name)s - %(levelname)s - %(message)s"
 
 
 handlers:
   console:
     class: logging.StreamHandler
     level: DEBUG
-    formatter: standard
+    formatter: simple
     stream: ext://sys.stdout
+
+  debug_file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: simple
+    filename: ../resource/debug.log
+    maxBytes: 10485670 # 10MB
+    backupCount: 20
+    encoding: utf8
 
   info_file_handler:
     class: logging.handlers.RotatingFileHandler
@@ -26,6 +36,15 @@ handlers:
     formatter: standard
     filename: ../resource/info.log
     maxBytes: 10485760 # 10MB
+    backupCount: 20
+    encoding: utf8
+
+  warn_file_handler:
+    class: logging.handlers.RotatingFileHandler
+    level: WARN
+    formatter: standard
+    filename: ../resource/warn.log
+    maxBytes: 10485670 # 10MB
     backupCount: 20
     encoding: utf8
 
@@ -38,45 +57,27 @@ handlers:
     backupCount: 20
     encoding: utf8
 
-  debug_file_handler:
-    class: logging.handlers.RotatingFileHandler
-    level: DEBUG
-    formatter: simple
-    filename: debug.log
-    maxBytes: 10485670 # 10MB
-    backupCount: 20
-    encoding: utf8
-
-  warn_file_handler:
-    class: logging.handlers.RotatingFileHandler
-    level: WARN
-    formatter: standard
-    filename: warn.log
-    maxBytes: 10485670 # 10MB
-    backupCount: 20
-    encoding: utf8
-
   critical_file_handler:
     class: logging.handlers.RotatingFileHandler
     level: CRITICAL
     formatter: standard
-    filename: critical.log
+    filename: ../resource/critical.log
     maxBytes: 10485670 # 10MB
     backupCount: 20
     encoding: utf8
 
 root:
   level: NOTSET
-  handlers: [console, info_file_handler]
+  handlers: [console]
   propogate: yes
 
 loggers:
-  <module>:
+  qop:
     level: INFO
-    handlers: [console, info_file_handler, error_file_handler]
+    handlers: [info_file_handler, error_file_handler]
     propogate: no
 
-  <module.x>:
+  jugg:
     level: DEBUG
     handles: [info_file_handler, error_file_handler, critical_file_handler, debug_file_handler, warn_file_handler, critical_file_handler]
     propogate: yes
