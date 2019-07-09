@@ -1,0 +1,11 @@
+email:
+  - sender: leizhen8080@gmail.com
+  - receiver: leizhen8080@foxmail.com
+  - username: aa
+  - password: 123456qwe
+
+db:
+  host: localhost
+  port: 3306
+  user: root
+  password: 123456

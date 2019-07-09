@@ -1,0 +1,6 @@
+flask
+PyYAML
+web.py==0.40-dev1
+pymongo
+PyMySQL
+pytest
